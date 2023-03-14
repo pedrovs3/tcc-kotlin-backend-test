@@ -1,5 +1,6 @@
 package com.example.doe_tempo.models
 
+import com.example.doe_tempo.utils.encoder
 import jakarta.persistence.*
 import java.sql.Date
 
@@ -12,7 +13,7 @@ data class User(
     @Column(nullable = false)
     var name: String,
 
-    @Column(nullable = false, length = 256)
+    @Column(nullable = false, length = 256, unique = true)
     var email: String,
 
     @Column(nullable = false)
@@ -38,4 +39,8 @@ data class User(
 
     @Column(nullable = true)
     var rg: String?,
-)
+) {
+    fun comparePassword(password: String): Boolean {
+        return encoder.matches(password, this.password)
+    }
+}

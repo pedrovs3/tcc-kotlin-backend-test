@@ -2,6 +2,7 @@ package com.example.doe_tempo.controllers
 
 import com.example.doe_tempo.models.User
 import com.example.doe_tempo.services.UserService
+import com.example.doe_tempo.utils.encoder
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -43,6 +44,8 @@ class UsersController {
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
     fun store(@RequestBody user: User): User {
+        val newPassword = encoder.encode(user.password)
+        user.password = newPassword
         return repository.create(user)
     }
 

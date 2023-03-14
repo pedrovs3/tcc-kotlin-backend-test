@@ -3,6 +3,7 @@ package com.example.doe_tempo.services
 import com.example.doe_tempo.models.User
 import com.example.doe_tempo.repository.UserRepository
 import com.example.doe_tempo.exceptions.ResourceNotFoundException
+import com.example.doe_tempo.utils.encoder
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.util.logging.Logger
@@ -26,9 +27,13 @@ class UserService {
             .orElseThrow { ResourceNotFoundException("No records found for this ID!") }
     }
 
+    fun findByEmail(email: String): User? {
+        return repository.findByEmail(email)
+    }
+
     fun create(user: User) : User{
         logger.info("Creating one person with name ${user.name}!")
-        logger.info("${user.address}")
+        logger.info(user.password)
 
         return repository.save(user)
     }
