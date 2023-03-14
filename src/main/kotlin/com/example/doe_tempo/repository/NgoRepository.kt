@@ -1,9 +1,10 @@
 package com.example.doe_tempo.repository
 
-import com.example.doe_tempo.models.Gender
+import com.example.doe_tempo.models.Ngo
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface GenderRepository: JpaRepository<Gender, String> {
+interface NgoRepository: JpaRepository<Ngo, String?> {
+
 }

@@ -1,7 +1,6 @@
-package com.example.doe_tempo.Models
+package com.example.doe_tempo.models
 
 import jakarta.persistence.*
-import org.ietf.jgss.GSSName
 import java.sql.Date
 
 @Entity
@@ -26,13 +25,13 @@ data class User(
     @JoinColumn(name = "id_gender", referencedColumnName = "id")
     var gender: Gender,
 
-    @ManyToMany(cascade = [CascadeType.PERSIST])
+    @ManyToMany(fetch = FetchType.LAZY,cascade = [CascadeType.ALL])
     @JoinTable(
         name = "tbl_user_address",
-        joinColumns = [JoinColumn(name = "id_user")],
-        inverseJoinColumns = [JoinColumn(name = "id_address")]
+        joinColumns = [JoinColumn(name = "id_user", referencedColumnName = "id")],
+        inverseJoinColumns = [JoinColumn(name = "id_address", referencedColumnName = "id")],
     )
-    var address: List<Address>,
+    var address: List<Address>?,
 
     @Column(nullable = false)
     var birthdate: Date,

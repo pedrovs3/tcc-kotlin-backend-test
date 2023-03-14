@@ -1,16 +1,19 @@
 package com.example.doe_tempo.controllers
 
-import com.example.doe_tempo.Models.User
+import com.example.doe_tempo.models.User
 import com.example.doe_tempo.services.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
+import java.lang.reflect.Method
 
 @RestController
 @RequestMapping("/user")
@@ -51,5 +54,12 @@ class UsersController {
     fun update(@PathVariable("id") id: String, @RequestBody user: User): User {
         user.id = id
         return repository.update(user)
+    }
+
+    @DeleteMapping(
+        value = ["/{id}"],
+    )
+    fun delete(@PathVariable("id") id: String ) {
+        return repository.delete(id)
     }
 }

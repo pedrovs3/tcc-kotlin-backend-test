@@ -1,11 +1,10 @@
-package com.example.doe_tempo.Models
+package com.example.doe_tempo.models
 
 import jakarta.persistence.*
 
 @Entity
 @Table(name = "tbl_address")
 data class Address(
-
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     var id: String?,
 
@@ -18,6 +17,6 @@ data class Address(
     @Column(nullable = true)
     var complement: String?,
 
-//    @ManyToMany(mappedBy = "address", cascade = [CascadeType.PERSIST])
-//    var users: List<User>?
+//    @ManyToMany(mappedBy = "address", fetch = FetchType.LAZY)
+//    private var users: List<User>?
 )

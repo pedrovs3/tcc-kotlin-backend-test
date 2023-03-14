@@ -1,7 +1,6 @@
 package com.example.doe_tempo.services
 
-import com.example.doe_tempo.Models.User
-import com.example.doe_tempo.repository.GenderRepository
+import com.example.doe_tempo.models.User
 import com.example.doe_tempo.repository.UserRepository
 import com.example.doe_tempo.exceptions.ResourceNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
@@ -30,7 +29,6 @@ class UserService {
     fun create(user: User) : User{
         logger.info("Creating one person with name ${user.name}!")
         logger.info("${user.address}")
-        logger.info(repository.save(user).toString())
 
         return repository.save(user)
     }
