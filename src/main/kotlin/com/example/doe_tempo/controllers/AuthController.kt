@@ -44,11 +44,12 @@ class AuthController {
 
         val issuer = user.id
 
-        val jwt = Jwts.builder()
-            .setIssuer(issuer)
-            .setExpiration(
-                Date(System.currentTimeMillis() + 60 * 24 * 1000) // 1 day
-            ).signWith(SignatureAlgorithm.HS512, "secret").compact()
+        val expiration: Long = 60000
+
+        val jwt = Jwts
+            .builder()
+            .signWith(SignatureAlgorithm.HS256, "teste")
+            .setPayload(user.toString()).setExpiration(Date(System.currentTimeMillis() + expiration)).compact()
 
         return ResponseEntity.ok(jwt)
     }
