@@ -5,11 +5,14 @@ import com.example.doe_tempo.repository.UserRepository
 import com.example.doe_tempo.exceptions.ResourceNotFoundException
 import com.example.doe_tempo.utils.encoder
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.core.userdetails.UserDetails
+import org.springframework.security.core.userdetails.UserDetailsService
+import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
 import java.util.logging.Logger
 
 @Service
-class UserService {
+class UserService : UserDetailsService {
 
     @Autowired
     private lateinit var repository: UserRepository
@@ -55,5 +58,11 @@ class UserService {
         val entity = repository.findById(id)
             .orElseThrow { ResourceNotFoundException("No records found for this ID!") }
         repository.delete(entity)
+    }
+
+    override fun loadUserByUsername(username: String?): UserDetails {
+        logger.info("Finding one User by Username $username!")
+        val user = repository.findByUsername(username)
+        return user ?: throw UsernameNotFoundException("")
     }
 }
