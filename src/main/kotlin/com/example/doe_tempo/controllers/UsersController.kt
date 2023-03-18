@@ -5,6 +5,7 @@ import com.example.doe_tempo.services.UserService
 import com.example.doe_tempo.utils.encoder
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -29,6 +30,16 @@ class UsersController {
     )
     fun index(): List<User> {
         return repository.findAll()
+    }
+
+    @GetMapping(
+        value = ["/email={email}"],
+        produces = [MediaType.APPLICATION_JSON_VALUE]
+    )
+    fun showByEmail(@PathVariable("email") email: String): ResponseEntity<User?> {
+        val user = repository.findByEmail(email)
+
+        return ResponseEntity.ok(user)
     }
 
     @GetMapping(

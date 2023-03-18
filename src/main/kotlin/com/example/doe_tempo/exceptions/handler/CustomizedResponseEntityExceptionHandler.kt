@@ -1,6 +1,7 @@
 package com.example.doe_tempo.exceptions.handler
 
 import com.example.doe_tempo.exceptions.ExceptionResponse
+import com.example.doe_tempo.exceptions.InvalidJwtAuthenticationException
 import com.example.doe_tempo.exceptions.ResourceNotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -34,5 +35,14 @@ class CustomizedResponseEntityExceptionHandler : ResponseEntityExceptionHandler(
             request.getDescription(false)
         )
         return ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.NOT_FOUND)
+    }
+    @ExceptionHandler(InvalidJwtAuthenticationException::class)
+    fun handleInvalidJwtAuthenticationExceptions(ex: Exception, request: WebRequest) : ResponseEntity<ExceptionResponse> {
+        val exceptionResponse = ExceptionResponse(
+            Date(),
+            ex.message,
+            request.getDescription(false)
+        )
+        return ResponseEntity<ExceptionResponse>(exceptionResponse, HttpStatus.FORBIDDEN)
     }
 }

@@ -28,7 +28,7 @@ class UserService {
     }
 
     fun findByEmail(email: String): User? {
-        return repository.findByEmail(email)
+        return repository.findByEmail(email) //?: throw EmailNotFoundException("Email $email not found")
     }
 
     fun create(user: User) : User{
